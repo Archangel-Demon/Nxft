@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp to VCF Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #download-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>WhatsApp to VCF Converter</h1>
+    <p>Enter WhatsApp numbers separated by commas:</p>
+    <textarea id="numbers" rows="10" placeholder="+5511999999999, +5521999999999"></textarea><br><br>
+    <button onclick="generateVCF()">Generate VCF</button>
+
+    <div id="download-link"></div>
+
+    <script>
+        function validatePhoneNumber(number) {
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+            return phoneRegex.test(number);
+        }
+
+        function generateVCF() {
+            const rawNumbers = document.getElementById("numbers").value.split(",");
+            const validNumbers = [];
+            let vcfContent = "";
+
+            rawNumbers.forEach((number, index) => {
+                number = number.trim().replace(/\s+/g, ""); // Remove espaços extras
+                if (validatePhoneNumber(number)) {
+                    validNumbers.push(number);
+                    vcfContent += "BEGIN:VCARD\n";
+                    vcfContent += "VERSION:3.0\n";
+                    vcfContent += `FN:neext${index + 1}\n`;
+                    vcfContent += `TEL;TYPE=CELL:${number}\n`;
+                    vcfContent += "END:VCARD\n";
+                }
+            });
+
+            if (validNumbers.length > 0) {
+                const blob = new Blob([vcfContent], { type: "text/vcard" });
+                const url = URL.createObjectURL(blob);
+                const downloadLink = document.createElement("a");
+                const timestamp = new Date().getTime();
+                downloadLink.href = url;
+                downloadLink.download = `contacts_${timestamp}.vcf`;
+                downloadLink.innerText = "Download VCF File";
+                document.getElementById("download-link").innerHTML = "";
+                document.getElementById("download-link").appendChild(downloadLink);
+            } else {
+                document.getElementById("download-link").innerHTML = "<p style='color:red;'>No valid phone numbers found. Please check your input.</p>";
+            }
+        }
+    </script>
+</body>
+</html>

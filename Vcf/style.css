@@ -1,0 +1,67 @@
+/* Estilo para o fundo e layout da página */
+body {
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffcc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Container centralizado para o conteúdo */
+.container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Estilo para os inputs e botões */
+input, button {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #1a1a1a;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus, button:hover {
+    border-color: #009999;
+    box-shadow: 0 0 10px #009999;
+}
+
+/* Estilo para o link de download */
+#downloadLink {
+    text-decoration: none;
+    display: none;
+    color: #00ffcc;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#downloadLink:hover {
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.button-container button {
+    margin: 0 5px;
+}
